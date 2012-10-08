@@ -1,13 +1,21 @@
-<!doctype html>
-<html>
-<title>2rot13 bookmarklet</title>
 
-<p>
-Drag this bookmarklet to your bookmarks toolbar: <a href="javascript:(function(){(function(){var%20az="abcdefghijklmnopqrstuvwxyzabcdefghijklmABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM";function%20rot13(text){for(var%20r="",i=0;i<text.length;i++){var%20chr=text.charAt(i);var%20position=az.indexOf(chr);if(position>-1){chr=az.charAt(position+13);}r+=chr;}return%20r;}function%20rot13pos(text,pos){return%20text.slice(0,pos)+rot13(text.slice(pos,pos+1))+text.slice(pos+1);}function%20rot13node(node,times){var%20speed=150;function%20timer(n,i,delay){setTimeout(function(){n.nodeValue=rot13pos(n.nodeValue,i);},i*speed+delay);}for(var%20i%20in%20node.nodeValue){timer(node,i,0);timer(node,i,2*speed);}}Array.prototype.forEach.call(document.querySelectorAll('*'),function(el){var%20node=el.childNodes[0];if(!node||node.nodeType!==3){return;}rot13node(node,2);});}());void%200})();">2rot13</a>
 
-</p>
+http://2nrot13.createopen.com
 
-<p>
-	Uses the <a href="http://phoenix.clifford.at/~ak/2rot13.pdf">2ROT13</a> algorithm.
-</p>
+
+Copyright (c) 2012 Dave Hulbert.
+
+All rights reserved.
+
+Redistribution and use in source and binary forms are permitted
+provided that the above copyright notice and this paragraph are
+duplicated in all such forms and that any documentation,
+advertising materials, and other materials related to such
+distribution and use acknowledge that the software was developed
+by Dave Hulbert.  The name of the
+author may not be used to endorse or promote products derived
+from this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
