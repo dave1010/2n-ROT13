@@ -1,6 +1,119 @@
 <!doctype html>
 <html>
-<title>2rot13 bookmarklet</title>
+<head>
+<title>2^n-ROT13</title>
+<!--
+	There's no magic here
+-->
+<style>
+body {
+	font-family: monospace;
+	font-size: 1.3em;
+	width: 80%;
+	margin: 2em auto;
+	background: #111;
+	color: #fff;
+	text-shadow: 1px 1px 1px #000;
+}
+* {
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;		
+}
+section {
+	padding: 1em 2em;
+}
+section:hover {
+	background: #020;
+}
+a {
+	color: #0f0;
+}
+textarea {
+	width: 100%;
+	height: 200px;
+}
+button {
+	width: 100%;
+}
+</style>
+</head>
+<body>
 
-Drag this bookmarklet to your bookmarks toolbar: <a href="javascript:(function(){(function(){var%20az="abcdefghijklmnopqrstuvwxyzabcdefghijklmABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM";function%20rot13(text){for(var%20r="",i=0;i<text.length;i++){var%20chr=text.charAt(i);var%20position=az.indexOf(chr);if(position>-1){chr=az.charAt(position+13);}r+=chr;}return%20r;}function%20rot13pos(text,pos){return%20text.slice(0,pos)+rot13(text.slice(pos,pos+1))+text.slice(pos+1);}function%20rot13node(node,times){var%20speed=150;function%20timer(n,i,delay){setTimeout(function(){n.nodeValue=rot13pos(n.nodeValue,i);},i*speed+delay);}for(var%20i%20in%20node.nodeValue){timer(node,i,0);timer(node,i,2*speed);}}Array.prototype.forEach.call(document.querySelectorAll('*'),function(el){var%20node=el.childNodes[0];if(!node||node.nodeType!==3){return;}rot13node(node,2);});}());void%200})();">2rot13</a>
+<h1>2<sup>n</sup>-ROT13 encoder / decoder</h1>
 
+<section>
+	<h2>About 2<sup>n</sup>-ROT13</h2>
+
+	<p>ROT13 is an awesome algorithm. It's a special version of the Caesar cipher, that can be <em>enhanced</em> by using multiple rounds. It's well battle-tested as it's been around for many years.</p> 
+
+	<p>Security experts currently recommend using <em>bcrypt</em>, <em>scrypt</em> or <em>PBKDF2</em> for storing passwords. These methiods use multiple rounds of simple algorithms such as SHA1 and Blowfish. The algorithms themselves are cracked very simply but using multiple rounds makes brute-forcing much harder.</p>
+
+	<p>In the same way, ROT13 can be applied multiple times to make it harder to brute force. Here's an important looking <a href="http://phoenix.clifford.at/~ak/2rot13.pdf">scientific paper</a> (it's a PDF, so it must be reliable), explaining the benefits of applying just 2 rounds of ROT13 (2-ROT13). One of these benefits is that 2-ROT13 has never been brute-forced.</p>
+
+	<p>My old favourite encryption method was bcrypt, which applies 2<sup>n</sup> rounds to the Blowfish cipher. I've taken the best bits of bcrypt (the 2<sup>n</sup> rounds) and the best bits of 2-ROT13 (the strength against brute-force) to create <strong>2<sup>n</sup>-ROT13</strong>.</p>
+</section>
+
+<section>
+	<h2>Encoder / Decoder bookmarklet</h2>
+
+	<p>Everyone loves bookmarklets. This bookmarklet uses my 2<sup>n</sup>-ROT13 method do encrypt all the text on any web page (it even works on inline stylesheets). If the page is already encrypted then it will automatically decrypt it.
+	</p>
+	
+	<p><blink>Drag this bookmarklet to your bookmarks toolbar, go to any website then click on it:</blink> 
+		<a href="javascript:(function(){(function(){var%20g=document.createElement('script');g.type='text/javascript';g.src='http://2nrot13.createopen.com/bookmarklet.js?'+Math.random();var%20s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(g,s);})();})();" onclick="alert('You should drag this to your bookmarks toolbar.\n\nLets run it now anyway')">2^n-ROT13</a>
+</section>
+
+<section>
+	<h2>Paste text</h2>
+	<p>Paste text here and it will automatically be encrypted or decrypted:</p>
+	<textarea>Mary had a little lamb,
+whose fleece was white as snow.
+
+And everywhere that Mary went,
+the lamb was sure to go.</textarea>
+	<button onclick="twonROT13.codeNode(this.previousSibling.previousSibling, 'value')">2^n-ROT13</button>
+</section>
+
+<section>
+	<h2>The Code</h2>
+
+	<p>An implementation of 2<sup>n</sup>-ROT13 (and this whole site) is available on <a href="https://github.com/dave1010/2rot13">Github</a>, just for you to play with.</p>
+
+</section>
+
+<section>
+	<h2>The Future</h2>
+
+	<ul>
+		<li>REST API, with JSON and XML - please get in contact if you would be interested in this service</li>
+		<li>Get number of rounds from random.org for &gt; 100% secuity</li>
+		<li>I18n</li>
+		<li>Port to node.js</li>
+		<li>Host this site over HTTPS (even though current HTTPS encryption isn't as strong as 2<sup>n</sup>-ROT13)</li>
+	</ul>
+
+</section>
+
+
+
+<footer>
+	<section>
+		<a href="http://createopen.com">Dave</a> made this.
+	</section>
+</footer>
+
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22795696-4']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script src="2nrot13.js"></script>
+</body>
+</html>
